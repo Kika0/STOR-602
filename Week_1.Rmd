@@ -1,0 +1,152 @@
+---
+title: "Week_1"
+output: pdf_document
+date: "2022-10-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# library(tinytex)
+```
+
+## C1.3
+
+```{r}
+monte <- function (n,h) {
+  norm1 <- pmax(rnorm(n,mean = 0, sd=1),0)
+  norm2 <- pmax(rnorm(n,mean = 0 , sd=1+h),0)
+  
+  derivative <- 1/h*(mean(norm2)-mean(norm1))
+  return(derivative)
+}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte(1000,h=0.1)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`. Setting h closer to 0 would likely reduce bias. 
+
+(ii) Now, use coupling method to define norm1 and norm2.
+
+```{r }
+monte1 <- function (n,h) {
+  normz <- rnorm(n,mean = 0, sd=1)
+  norm1 <- pmax(normz,0)
+  norm2 <- pmax(normz*(1+h),0)
+  
+  derivative <- 1/h*(mean(norm2)-mean(norm1))
+  return(derivative)
+}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte(1000,h=0.1)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.
+
+## Repetition 2: h=0.01
+
+```{r}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte1(1000,h=0.01)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.
+
+## Repetition 3: h=0.05
+```{r}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte1(1000,h=0.05)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.
+
+## Repetition 4: h=0.0001
+```{r}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte1(1000,h=0.0001)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.
+
+# Run same with monte (part (i))
+## Repetition 2: h=0.01
+```{r}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte(1000,h=0.01)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.
+
+## Repetition 3: h=0.05
+```{r}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte(1000,h=0.05)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.
+
+## Repetition 4: h=0.0001
+```{r}
+set.seed(12345)
+run_many <- c()
+ for (x in 1:10000) {
+  it <- monte(1000,h=0.0001)
+  run_many <- c(run_many,it)
+}
+
+bias <- mean(run_many)-1/sqrt(1/2*pi)
+eff <- mean((run_many-mean(run_many))^2)
+mse <- mean((run_many-1/sqrt(1/2*pi))^2)
+```
+The random observation has bias `r round(bias,2)`, efficiency `r round(eff,2)` and mean square error `r round(mse,2)`.      
+
