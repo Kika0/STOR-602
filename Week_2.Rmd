@@ -1,0 +1,33 @@
+---
+#title: "Week_2"
+output: pdf_document
+date: "2022-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## C2.3
+
+(i)
+```{r }
+set.seed(12345)
+X <- rnorm(10000)
+set.seed(12345)
+Y <- rexp(10000,rate=1)
+p_1 <- sum((X+Y)>1)/10000
+# qnorm(0.975)
+N <- ((qnorm(0.975)*sqrt(var(X+Y>1))/0.1))^2
+```
+P((X+Y)>1)=`r p_1` and N=`r N`.
+
+(ii)
+
+
+
+```{r }
+
+```
+
+
